@@ -30,7 +30,13 @@ export default function ProfilePage() {
           setError(queryError.message);
           return;
         }
-        setName(data?.display_name || user.user_metadata?.display_name || "");
+        setName(
+          data?.display_name ||
+          user.user_metadata?.display_name ||
+          user.user_metadata?.full_name ||
+          user.user_metadata?.name ||
+          "",
+        );
         setAvatar(data?.avatar_url || avatars[0]);
       })
       .catch((queryError) => {

@@ -157,55 +157,64 @@ export default function Storefront({ catalogOnly = false }) {
     <main>
       <section className={`hero hero-${theme.color}`}>
         <div className="hero-grain" aria-hidden="true" />
-        <div className="hero-copy">
-          <p className="eyebrow">MOVE YOUR OWN WAY</p>
-          <h1>
-            Made for
-            <br />
-            <span>the in-between.</span>
-          </h1>
-          <p className="hero-description">
-            The good stuff for every place your day takes you.
-          </p>
-          <Link className="button button-light" href="/shop">
-            Explore the collection <span aria-hidden="true">↗</span>
-          </Link>
-        </div>
-        <div className="hero-art" key={theme.color}>
-          <div className="hero-orbit hero-orbit-one" />
-          <div className="hero-orbit hero-orbit-two" />
-          <div className="hero-glow" />
-          <Image
-            className="hero-shoe"
-            src={theme.image}
-            alt={`${theme.name} colorway shoe`}
-            width={760}
-            height={580}
-            priority
-          />
-          <p className="hero-caption">01 / BUILT FOR EVERY DAY</p>
-        </div>
-        <div className="theme-picker" aria-label="Choose a shoe colorway">
-          <span>THE COLOR STORY</span>
-          {themes.map((item) => (
-            <button
-              key={item.color}
-              aria-label={`Show ${item.name} colorway`}
-              aria-pressed={theme.color === item.color}
-              className={`theme-dot theme-dot-${item.color}${theme.color === item.color ? " selected" : ""}`}
-              onClick={() => chooseTheme(item)}
-              type="button"
+        <div className="hero-inner">
+          <div className="hero-copy">
+            <p className="eyebrow">THE EVERYDAY EDIT / 2026</p>
+            <h1>
+              Move your
+              <br />
+              <span>own way.</span>
+            </h1>
+            <p className="hero-description">
+              Everyday sneakers, layers and carry-alls with comfort built in—and a little extra character.
+            </p>
+            <Link className="button button-light" href="/shop">
+              Shop the collection <span aria-hidden="true">↗</span>
+            </Link>
+            <div className="theme-picker" aria-label="Choose a shoe colorway">
+              <span>CHOOSE YOUR COLOR</span>
+              {themes.map((item) => (
+                <button
+                  key={item.color}
+                  aria-label={`Show ${item.name} colorway`}
+                  aria-pressed={theme.color === item.color}
+                  className={`theme-dot theme-dot-${item.color}${theme.color === item.color ? " selected" : ""}`}
+                  onClick={() => chooseTheme(item)}
+                  type="button"
+                />
+              ))}
+              <strong>{theme.name}</strong>
+            </div>
+          </div>
+          <div className="hero-art" key={theme.color}>
+            <div className="hero-orbit hero-orbit-one" />
+            <div className="hero-orbit hero-orbit-two" />
+            <div className="hero-glow" />
+            <Image
+              className="hero-shoe"
+              src={theme.image}
+              alt={`${theme.name} colorway shoe`}
+              width={760}
+              height={760}
+              priority
             />
-          ))}
-          <strong>{theme.name}</strong>
+            <div className="hero-product-label">
+              <span>YOUR NEW EVERYDAY</span>
+              <strong>{theme.name}</strong>
+            </div>
+            <p className="hero-caption">COMFORT THAT KEEPS UP</p>
+          </div>
         </div>
-        <div className="hero-scroll">SCROLL TO EXPLORE <span>↓</span></div>
+        <Link className="hero-scroll" href="/shop">
+          <span>SCROLL TO FIND YOURS</span><span aria-hidden="true">↓</span>
+        </Link>
       </section>
 
-      <section className="intro-band">
-        <p>RONGKUSHOL / 2026</p>
-        <h2>Everyday pieces. <span>Unexpected energy.</span></h2>
-        <p>Comfort you can count on, with a little more character.</p>
+      <section className="feature-strip" aria-label="The Rongkushol difference">
+        <p>RONGKUSHOL / MADE FOR EVERY DAY</p>
+        <div><span>01</span><strong>Easy comfort</strong></div>
+        <div><span>02</span><strong>Everyday character</strong></div>
+        <div><span>03</span><strong>Move your own way</strong></div>
       </section>
 
       <section className="content-section collection-section">
@@ -221,21 +230,6 @@ export default function Storefront({ catalogOnly = false }) {
         ) : (
           <ProductGrid products={featuredProducts} onAdd={addItem} />
         )}
-      </section>
-
-      <section className="statement-section">
-        <div className="statement-copy">
-          <p className="eyebrow">COMFORT, WITH INTENTION</p>
-          <h2>Move without<br />second thoughts.</h2>
-          <p>Considered details. Easy-to-wear shapes. Pieces that make getting out the door feel like the best part.</p>
-          <Link className="button button-outline" href="/shop">Meet your new favorites <span>↗</span></Link>
-        </div>
-        <div className="statement-image">
-          {heroProduct && (
-            <Image src={heroProduct.image_url} alt={heroProduct.name} fill sizes="(max-width: 800px) 100vw, 50vw" />
-          )}
-          <span className="statement-stamp">GOOD<br />THINGS<br />AHEAD</span>
-        </div>
       </section>
 
       <section className="content-section offers-section" id="offers">
@@ -269,6 +263,21 @@ export default function Storefront({ catalogOnly = false }) {
         ) : (
           <p className="empty-note">New offers are on their way.</p>
         )}
+      </section>
+
+      <section className="statement-section">
+        <div className="statement-copy">
+          <p className="eyebrow">COMFORT, WITH INTENTION</p>
+          <h2>Move without<br />second thoughts.</h2>
+          <p>Considered details. Easy-to-wear shapes. Pieces that make getting out the door feel like the best part.</p>
+          <Link className="button button-outline" href="/shop">Meet your new favorites <span>↗</span></Link>
+        </div>
+        <div className="statement-image">
+          {heroProduct && (
+            <Image src={heroProduct.image_url} alt={heroProduct.name} fill sizes="(max-width: 800px) 100vw, 50vw" />
+          )}
+          <span className="statement-stamp">GOOD<br />THINGS<br />AHEAD</span>
+        </div>
       </section>
       <footer className="site-footer">
         <Link className="wordmark" href="/">rong<span>kushol</span></Link>

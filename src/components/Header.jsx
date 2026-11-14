@@ -1,17 +1,51 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "./AuthProvider";
 import { useCart } from "./CartProvider";
 
+const ROOT_EMAIL = "arhamwaresi6@gmail.com";
+
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { user } = useAuth();
+  const [isAdmin, setIsAdmin] = useState(false);
+  const { user, client } = useAuth();
   const { count } = useCart();
 
+  useEffect(() => {
+    let active = true;
+    if (!user || !client) {
+      setIsAdmin(false);
+      return () => {
+        active = false;
+      };
+    }
+
+    if (user.email?.trim().toLowerCase() === ROOT_EMAIL) {
+      setIsAdmin(true);
+      return () => {
+        active = false;
+      };
+    }
+
+    client.from("profiles").select("role").eq("user_id", user.id).maybeSingle()
+      .then(({ data, error }) => {
+        if (!active) return;
+        if (error) console.error("Could not read the account role.", error);
+        setIsAdmin(data?.role === "admin");
+      })
+      .catch((error) => {
+        if (active) console.error("Could not read the account role.", error);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [client, user]);
+
   return (
-    <header className="site-header">
+    <header className="site-header site-header-on-light">
       <Link className="wordmark" href="/" aria-label="Rongkushol home">
         rong<span>kushol</span>
       </Link>
@@ -34,6 +68,11 @@ export default function Header() {
         <Link href="/cart" onClick={() => setMenuOpen(false)}>
           Bag <span className="bag-count">{count}</span>
         </Link>
+        {isAdmin && (
+          <Link className="nav-account" href="/admin" onClick={() => setMenuOpen(false)}>
+            Admin
+          </Link>
+        )}
         {user ? (
           <Link className="nav-account" href="/profile" onClick={() => setMenuOpen(false)}>
             Account
