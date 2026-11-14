@@ -88,6 +88,7 @@ class StoreApiTests(unittest.TestCase):
         self.assertEqual(response.status_code, 403)
         self.assertIn("Administrator", response.json["error"])
 
+    @patch.dict(os.environ, {"SUPABASE_URL": "https://example.supabase.co"})
     def test_root_can_create_products(self):
         product = {
             "name": "Demo Runner",
@@ -95,7 +96,10 @@ class StoreApiTests(unittest.TestCase):
             "category": "shoes",
             "price": 80,
             "compare_at_price": 100,
-            "image_url": "/img/shoe-Nike-1.png",
+            "image_url": (
+                "https://example.supabase.co/storage/v1/object/public/"
+                "product-images/shoe-Nike-1.png"
+            ),
             "description": "A demo product.",
             "features": ["Lightweight", "Comfortable"],
             "is_active": True,
@@ -114,6 +118,28 @@ class StoreApiTests(unittest.TestCase):
             payload=product,
             token="root-token",
         )
+
+    @patch.dict(os.environ, {"SUPABASE_URL": "https://example.supabase.co"})
+    def test_product_image_accepts_this_projects_public_storage_url(self):
+        image_url = (
+            "https://example.supabase.co/storage/v1/object/public/"
+            "product-images/shoe-Nike-1.png"
+        )
+        self.assertEqual(
+            store_app._image_path({"image_url": image_url}),
+            image_url,
+        )
+
+    @patch.dict(os.environ, {"SUPABASE_URL": "https://example.supabase.co"})
+    def test_product_image_rejects_other_hosts_and_buckets(self):
+        for image_url in (
+            "https://attacker.example/storage/v1/object/public/product-images/shoe.png",
+            "https://example.supabase.co/storage/v1/object/public/avatars/shoe.png",
+            "/img/shoe-Nike-1.png",
+        ):
+            with self.subTest(image_url=image_url):
+                with self.assertRaises(store_app.StoreApiError):
+                    store_app._image_path({"image_url": image_url})
 
     def test_product_creation_rejects_inverted_sale_prices(self):
         product = {

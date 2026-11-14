@@ -276,23 +276,93 @@ grant execute on function public.is_store_admin() to anon, authenticated;
 insert into public.products
   (id, name, brand, category, price, compare_at_price, image_url, description, features, is_featured)
 values
-  ('e6288576-c470-4c68-bdcf-96c829496ad1', 'Air Motion 01', 'Nike', 'shoes', 129, 159, '/img/shoe-Nike-1.png', 'A lightweight everyday runner with a responsive feel and a clean, versatile profile.', array['Responsive cushioning', 'Breathable mesh', 'Rubber grip outsole'], true),
-  ('fc01d18f-073b-47d2-8f52-949e0b56d8e2', 'Court Legacy', 'Jordan', 'shoes', 145, 180, '/img/shoe-jordan-1.png', 'A court-inspired classic, updated for all-day comfort and easy styling.', array['Padded collar', 'Durable leather upper', 'Classic court traction'], true),
-  ('3903cf12-8d75-47b6-a27f-c45d5810687f', 'Street Form', 'New Balance', 'shoes', 110, null, '/img/shoe-newBalance-1.png', 'Modern everyday comfort with a balanced, soft ride from the first step.', array['Soft foam midsole', 'Supportive fit', 'Everyday versatility'], false),
-  ('f2adbd42-a09e-4946-9492-838dc4a72208', 'Velocity Runner', 'Puma', 'shoes', 98, 125, '/img/shoe-puma-1.png', 'A flexible training shoe built for movement, warm-ups, and weekend miles.', array['Flexible construction', 'Lightweight upper', 'Grippy rubber outsole'], true),
-  ('082bb5ef-017f-482a-a8af-11e294a6cf1d', 'Everyday Layer', 'Rongkushol', 'clothing', 54, 68, '/img/cloth-png-black1.png', 'A clean wardrobe essential with an easy fit and soft everyday feel.', array['Relaxed fit', 'Soft-touch fabric', 'Easy-care finish'], false),
-  ('89390d56-3af8-4e07-82db-d8200156422a', 'Canvas Carryall', 'Rongkushol', 'bags', 72, null, '/img/handbag-png-green1.png', 'A practical daily bag that keeps your essentials close without weighing you down.', array['Roomy main compartment', 'Comfortable carry', 'Durable construction'], false),
-  ('6ab36b3c-3a93-41d0-8d38-7bb22f0e3001', 'Cloudstep Runner', 'Nike', 'shoes', 118, 145, '/img/shoe-Nike-2.png', 'A cushioned daily trainer for commutes, errands, and easy miles.', array['Soft impact cushioning', 'Breathable upper', 'Flexible everyday sole'], true),
-  ('6ab36b3c-3a93-41d0-8d38-7bb22f0e3002', 'Retro Court Low', 'Jordan', 'shoes', 132, 160, '/img/shoe-jordan-2.png', 'A timeless low-profile court shoe with a comfortable, broken-in feel.', array['Padded ankle collar', 'Classic court profile', 'Grippy rubber outsole'], false),
-  ('6ab36b3c-3a93-41d0-8d38-7bb22f0e3003', 'Everyday Tote', 'Rongkushol', 'bags', 64, null, '/img/handbag-png-pink1.png', 'A roomy lightweight tote for the daily essentials and everything in between.', array['Easy shoulder carry', 'Roomy interior', 'Lightweight construction'], false),
-  ('6ab36b3c-3a93-41d0-8d38-7bb22f0e3004', 'Soft Knit Layer', 'Rongkushol', 'clothing', 48, 60, '/img/cloth-png-green1.png', 'An easy layer with a relaxed shape and a soft, breathable hand feel.', array['Relaxed everyday fit', 'Soft breathable fabric', 'Easy to layer'], false)
-on conflict (id) do nothing;
+  ('e6288576-c470-4c68-bdcf-96c829496ad1', 'Demo Air Motion 01', 'Nike', 'shoes', 129, 159, 'https://jnbgcqrhxwhpdmzpeggw.supabase.co/storage/v1/object/public/product-images/shoe-Nike-1.png', 'A demo everyday runner for testing product pages and discounts.', array['Responsive cushioning', 'Breathable mesh', 'Rubber grip outsole'], true),
+  ('fc01d18f-073b-47d2-8f52-949e0b56d8e2', 'Demo Court Legacy', 'Jordan', 'shoes', 145, 180, 'https://jnbgcqrhxwhpdmzpeggw.supabase.co/storage/v1/object/public/product-images/shoe-jordan-1.png', 'A demo court-inspired classic for testing product pages and discounts.', array['Padded collar', 'Durable leather upper', 'Classic court traction'], true),
+  ('3903cf12-8d75-47b6-a27f-c45d5810687f', 'Demo Street Form', 'New Balance', 'shoes', 110, null, 'https://jnbgcqrhxwhpdmzpeggw.supabase.co/storage/v1/object/public/product-images/shoe-newBalance-1.png', 'A demo everyday shoe for testing product pages and filters.', array['Soft foam midsole', 'Supportive fit', 'Everyday versatility'], false),
+  ('f2adbd42-a09e-4946-9492-838dc4a72208', 'Demo Velocity Runner', 'Puma', 'shoes', 98, 125, 'https://jnbgcqrhxwhpdmzpeggw.supabase.co/storage/v1/object/public/product-images/shoe-puma-1.png', 'A demo training shoe for testing product pages and discounts.', array['Flexible construction', 'Lightweight upper', 'Grippy rubber outsole'], true),
+  ('082bb5ef-017f-482a-a8af-11e294a6cf1d', 'Demo Everyday Layer', 'Rongkushol', 'clothing', 54, 68, 'https://jnbgcqrhxwhpdmzpeggw.supabase.co/storage/v1/object/public/product-images/cloth-png-black1.png', 'A demo wardrobe essential for testing clothing filters and product pages.', array['Relaxed fit', 'Soft-touch fabric', 'Easy-care finish'], false),
+  ('89390d56-3af8-4e07-82db-d8200156422a', 'Demo Canvas Carryall', 'Rongkushol', 'bags', 72, null, 'https://jnbgcqrhxwhpdmzpeggw.supabase.co/storage/v1/object/public/product-images/handbag-png-green1.png', 'A demo daily bag for testing category filters and product pages.', array['Roomy main compartment', 'Comfortable carry', 'Durable construction'], false),
+  ('6ab36b3c-3a93-41d0-8d38-7bb22f0e3001', 'Demo Cloudstep Runner', 'Nike', 'shoes', 118, 145, 'https://jnbgcqrhxwhpdmzpeggw.supabase.co/storage/v1/object/public/product-images/shoe-Nike-2.png', 'A demo cushioned daily trainer for testing product pages and discounts.', array['Soft impact cushioning', 'Breathable upper', 'Flexible everyday sole'], true),
+  ('6ab36b3c-3a93-41d0-8d38-7bb22f0e3002', 'Demo Retro Court Low', 'Jordan', 'shoes', 132, 160, 'https://jnbgcqrhxwhpdmzpeggw.supabase.co/storage/v1/object/public/product-images/shoe-jordan-2.png', 'A demo low-profile court shoe for testing product pages and filters.', array['Padded ankle collar', 'Classic court profile', 'Grippy rubber outsole'], false),
+  ('6ab36b3c-3a93-41d0-8d38-7bb22f0e3003', 'Demo Everyday Tote', 'Rongkushol', 'bags', 64, null, 'https://jnbgcqrhxwhpdmzpeggw.supabase.co/storage/v1/object/public/product-images/handbag-png-pink1.png', 'A demo lightweight tote for testing category filters and product pages.', array['Easy shoulder carry', 'Roomy interior', 'Lightweight construction'], false),
+  ('6ab36b3c-3a93-41d0-8d38-7bb22f0e3004', 'Demo Soft Knit Layer', 'Rongkushol', 'clothing', 48, 60, 'https://jnbgcqrhxwhpdmzpeggw.supabase.co/storage/v1/object/public/product-images/cloth-png-green1.png', 'A demo soft layer for testing clothing filters and product pages.', array['Relaxed everyday fit', 'Soft breathable fabric', 'Easy to layer'], false)
+on conflict (id) do update set
+  name = excluded.name,
+  brand = excluded.brand,
+  category = excluded.category,
+  price = excluded.price,
+  compare_at_price = excluded.compare_at_price,
+  image_url = excluded.image_url,
+  description = excluded.description,
+  features = excluded.features,
+  is_featured = excluded.is_featured;
+
+insert into public.products
+  (name, brand, category, price, compare_at_price, image_url, description, features, is_featured)
+select
+  demo.name,
+  demo.brand,
+  demo.category,
+  demo.price,
+  demo.compare_at_price,
+  'https://jnbgcqrhxwhpdmzpeggw.supabase.co/storage/v1/object/public/product-images/' || demo.image_file,
+  demo.description,
+  demo.features,
+  demo.is_featured
+from (values
+  ('Demo Court Runner 1-2', 'Jordan', 'shoes', 138, 168, 'shoe-jordan-1-2.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo Court Runner 03', 'Jordan', 'shoes', 134, 164, 'shoe-jordan-3.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo Court Runner 04', 'Jordan', 'shoes', 142, 172, 'shoe-jordan-4.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], true),
+  ('Demo Street Runner 02', 'New Balance', 'shoes', 106, 136, 'shoe-newBalance-2.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo Street Runner 03', 'New Balance', 'shoes', 112, 142, 'shoe-newBalance-3.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo Street Runner 04', 'New Balance', 'shoes', 119, 149, 'shoe-newBalance-4.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo Street Runner 05', 'New Balance', 'shoes', 124, 154, 'shoe-newBalance-5.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo Street Runner 06', 'New Balance', 'shoes', 116, 146, 'shoe-newBalance-6.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo Air Motion 03', 'Nike', 'shoes', 116, 146, 'shoe-Nike-3.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], true),
+  ('Demo Air Motion 04A', 'Nike', 'shoes', 128, 158, 'shoe-Nike-4-2.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo Air Motion 04B', 'Nike', 'shoes', 132, 162, 'shoe-Nike-4.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo Velocity Trainer 02', 'Puma', 'shoes', 96, 126, 'shoe-puma-2.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo Velocity Trainer 03', 'Puma', 'shoes', 102, 132, 'shoe-puma-3.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo Velocity Trainer 04', 'Puma', 'shoes', 108, 138, 'shoe-puma-4.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo Velocity Trainer 05', 'Puma', 'shoes', 114, 144, 'shoe-puma-5.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo Velocity Trainer 06', 'Puma', 'shoes', 119, 149, 'shoe-puma-6.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo Velocity Trainer 07', 'Puma', 'shoes', 124, 154, 'shoe-puma-7.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo Velocity Trainer 08', 'Puma', 'shoes', 129, 159, 'shoe-puma-8.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo Vintage Runner 01', 'Rongkushol', 'shoes', 78, 98, 'shoe-vintage-1.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo Vintage Runner 02', 'Rongkushol', 'shoes', 82, 102, 'shoe-vintage-2.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo Vintage Runner 03', 'Rongkushol', 'shoes', 88, 108, 'shoe-vintage-3.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo City Runner Brown 01', 'Rongkushol', 'shoes', 88, 118, 'shoe-png-brown1.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo City Runner Brown 02', 'Rongkushol', 'shoes', 92, 122, 'shoe-png-brown2.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo City Runner Green 01', 'Rongkushol', 'shoes', 92, 122, 'shoe-png-green.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo City Runner Green 02', 'Rongkushol', 'shoes', 96, 126, 'shoe-png-green1.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo City Runner Green 03', 'Rongkushol', 'shoes', 98, 128, 'shoe-png-green2.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], true),
+  ('Demo City Runner Neon 01', 'Rongkushol', 'shoes', 94, 124, 'shoe-png-neon.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo City Runner Neon 02', 'Rongkushol', 'shoes', 98, 128, 'shoe-png-neon2.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo City Runner Neon 03', 'Rongkushol', 'shoes', 102, 132, 'shoe-png-neon3.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo City Runner Neon 04', 'Rongkushol', 'shoes', 106, 136, 'shoe-png-neon4.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo City Runner Blue', 'Rongkushol', 'shoes', 90, 120, 'shoe-png.png', 'Demo footwear for testing catalog filters and product pages.', array['Demo catalog item', 'Breathable upper', 'Everyday grip'], false),
+  ('Demo Essential Layer Red', 'Rongkushol', 'clothing', 34, 48, 'cloth-png-red1.png', 'Demo apparel for testing category filters and product pages.', array['Demo catalog item', 'Soft-touch fabric', 'Relaxed fit'], false),
+  ('Demo Essential Layer White', 'Rongkushol', 'clothing', 36, 50, 'cloth-png-white1.png', 'Demo apparel for testing category filters and product pages.', array['Demo catalog item', 'Soft-touch fabric', 'Relaxed fit'], false)
+) as demo(name, brand, category, price, compare_at_price, image_file, description, features, is_featured)
+where not exists (
+  select 1
+  from public.products as existing
+  where existing.image_url =
+    'https://jnbgcqrhxwhpdmzpeggw.supabase.co/storage/v1/object/public/product-images/' || demo.image_file
+);
 
 insert into public.offers
   (id, title, description, discount_percent, image_url, product_id)
 values
-  ('1cd197cf-d1b0-41e7-9c73-8114458f02bd', 'Move for less', 'A little extra on selected everyday trainers.', 20, '/img/shoe-offer-1.png', 'e6288576-c470-4c68-bdcf-96c829496ad1'),
-  ('72098149-aaef-44c8-9df5-c1bcc2b312bc', 'Weekend rotation', 'Fresh pairs, better prices. While this offer lasts.', 15, '/img/shoe-offer-2.png', 'fc01d18f-073b-47d2-8f52-949e0b56d8e2'),
-  ('2cd197cf-d1b0-41e7-9c73-8114458f0003', 'Everyday runner event', 'Save on the pairs made to keep you moving.', 18, '/img/shoe-offer-3.png', '6ab36b3c-3a93-41d0-8d38-7bb22f0e3001'),
-  ('2cd197cf-d1b0-41e7-9c73-8114458f0004', 'A softer layer', 'A little something off your everyday essentials.', 12, '/img/cloth-png-green1.png', '6ab36b3c-3a93-41d0-8d38-7bb22f0e3004')
-on conflict (id) do nothing;
+  ('1cd197cf-d1b0-41e7-9c73-8114458f02bd', 'Demo: Move for less', 'Demo offer for testing a selected everyday trainer discount.', 20, 'https://jnbgcqrhxwhpdmzpeggw.supabase.co/storage/v1/object/public/product-images/shoe-offer-1.png', 'e6288576-c470-4c68-bdcf-96c829496ad1'),
+  ('72098149-aaef-44c8-9df5-c1bcc2b312bc', 'Demo: Weekend rotation', 'Demo offer for testing a selected court shoe discount.', 15, 'https://jnbgcqrhxwhpdmzpeggw.supabase.co/storage/v1/object/public/product-images/shoe-offer-2.png', 'fc01d18f-073b-47d2-8f52-949e0b56d8e2'),
+  ('2cd197cf-d1b0-41e7-9c73-8114458f0003', 'Demo: Everyday runner event', 'Demo offer for testing a second trainer discount.', 18, 'https://jnbgcqrhxwhpdmzpeggw.supabase.co/storage/v1/object/public/product-images/shoe-offer-3.png', '6ab36b3c-3a93-41d0-8d38-7bb22f0e3001'),
+  ('2cd197cf-d1b0-41e7-9c73-8114458f0004', 'Demo: Fresh layers', 'Demo offer for testing a clothing discount.', 12, 'https://jnbgcqrhxwhpdmzpeggw.supabase.co/storage/v1/object/public/product-images/shoe-offer-4.png', '6ab36b3c-3a93-41d0-8d38-7bb22f0e3004'),
+  ('2cd197cf-d1b0-41e7-9c73-8114458f0005', 'Demo: New-season pick', 'Demo offer for testing a New Balance product promotion.', 10, 'https://jnbgcqrhxwhpdmzpeggw.supabase.co/storage/v1/object/public/product-images/shoe-offer-2-2.png', '3903cf12-8d75-47b6-a27f-c45d5810687f')
+on conflict (id) do update set
+  title = excluded.title,
+  description = excluded.description,
+  discount_percent = excluded.discount_percent,
+  image_url = excluded.image_url,
+  product_id = excluded.product_id,
+  is_active = true;

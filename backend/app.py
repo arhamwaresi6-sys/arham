@@ -3,6 +3,7 @@ import math
 import os
 import re
 import uuid
+from urllib.parse import urlsplit
 
 import requests
 from dotenv import load_dotenv
@@ -166,9 +167,30 @@ def _required_text(payload, field, *, maximum=160):
 
 def _image_path(payload):
     value = _required_text(payload, "image_url", maximum=240)
-    if not re.fullmatch(r"/img/[A-Za-z0-9][A-Za-z0-9._/-]*", value) or ".." in value:
-        raise StoreApiError("Image must use a safe path under /img/.", 400)
-    return value
+    image_url = urlsplit(value)
+    supabase_url = urlsplit(os.getenv("SUPABASE_URL", ""))
+    storage_prefix = "/storage/v1/object/public/product-images/"
+    object_path = (
+        image_url.path[len(storage_prefix):]
+        if image_url.path.startswith(storage_prefix)
+        else ""
+    )
+    if (
+        supabase_url.scheme == "https"
+        and image_url.scheme == "https"
+        and image_url.netloc == supabase_url.netloc
+        and object_path
+        and re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._/-]*", object_path)
+        and ".." not in object_path
+        and not image_url.query
+        and not image_url.fragment
+    ):
+        return value
+
+    raise StoreApiError(
+        "Image must use this project's public product-images bucket.",
+        400,
+    )
 
 
 def _price(payload, field, *, optional=False):

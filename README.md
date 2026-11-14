@@ -14,7 +14,7 @@ The Next.js frontend and Flask API are configured as Vercel Services in one depl
 
 ## Set up Supabase
 
-1. In the Supabase SQL Editor, run `backend/schema.sql`. It creates or updates the products, offers, profiles, reviews, and private user-directory tables; adds database-enforced admin policies; and seeds sample products/offers that use images in `public/img`. If you already set up the store, rerun the full script to add the admin role support and additional demo rows.
+1. Create a public Supabase Storage bucket named `product-images` and upload the product and offer image files. In the Supabase SQL Editor, run `backend/schema.sql`. It creates or updates the products, offers, profiles, reviews, and private user-directory tables; adds database-enforced admin policies; and seeds sample products/offers with public URLs from that bucket. If you already set up the store, rerun the full script to add the admin role support and additional demo rows.
 2. In Supabase Auth settings, choose your email-confirmation behavior and allow `http://localhost:3000/auth/callback` plus your production app's `/auth/callback` URL in the redirect URL list.
 3. Copy `.env.example` to `.env.local` and set `NEXT_PUBLIC_SUPABASE_URL` plus `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (or the legacy `NEXT_PUBLIC_SUPABASE_ANON_KEY`). Restart Next.js after changing these values. Never put a Supabase `service_role` key in a `NEXT_PUBLIC_*` variable or commit credentials.
 4. Copy `backend/.env.example` to `backend/.env` and use the same project URL and publishable/anon key. Set `FRONTEND_ORIGINS` to the comma-separated allowed frontend origins when deploying.

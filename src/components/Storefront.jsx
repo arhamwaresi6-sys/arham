@@ -4,13 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { apiRequest } from "../lib/api";
+import { getProductImageUrl } from "../lib/productImages";
 import { useCart } from "./CartProvider";
 import ProductCard from "./ProductCard";
 
 const themes = [
-  { name: "Velocity", color: "blue", image: "/img/shoe-png.png" },
-  { name: "Vortexx", color: "green", image: "/img/shoe-png-green2.png" },
-  { name: "Driftt", color: "neon", image: "/img/shoe-png-neon.png" },
+  { name: "Velocity", color: "blue", image: getProductImageUrl("shoe-png.png") },
+  { name: "Vortexx", color: "green", image: getProductImageUrl("shoe-png-green2.png") },
+  { name: "Driftt", color: "neon", image: getProductImageUrl("shoe-png-neon.png") },
 ];
 
 function shuffled(values) {

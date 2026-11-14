@@ -6,23 +6,9 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../components/AuthProvider";
 import { apiRequest, readablePrice } from "../../lib/api";
+import { offerImageOptions, productImageOptions } from "../../lib/productImages";
 
 const ROOT_EMAIL = "arhamwaresi6@gmail.com";
-const imageOptions = [
-  "/img/shoe-Nike-1.png",
-  "/img/shoe-Nike-2.png",
-  "/img/shoe-jordan-1.png",
-  "/img/shoe-jordan-2.png",
-  "/img/shoe-newBalance-1.png",
-  "/img/shoe-puma-1.png",
-  "/img/shoe-offer-1.png",
-  "/img/shoe-offer-2.png",
-  "/img/shoe-offer-3.png",
-  "/img/cloth-png-black1.png",
-  "/img/cloth-png-green1.png",
-  "/img/handbag-png-green1.png",
-  "/img/handbag-png-pink1.png",
-];
 
 function emptyProduct() {
   return {
@@ -31,7 +17,7 @@ function emptyProduct() {
     category: "shoes",
     price: "",
     compare_at_price: "",
-    image_url: imageOptions[0],
+    image_url: productImageOptions[0],
     description: "",
     features: "",
     is_active: true,
@@ -44,7 +30,7 @@ function emptyOffer() {
     title: "",
     description: "",
     discount_percent: "15",
-    image_url: "/img/shoe-offer-1.png",
+    image_url: offerImageOptions[0],
     product_id: "",
     is_active: true,
   };
@@ -339,7 +325,7 @@ export default function AdminPage() {
               <label>Price (USD)<input type="number" min="0" step="0.01" value={product.price} onChange={(event) => setProduct({ ...product, price: event.target.value })} required /></label>
               <label>Compare-at price<input type="number" min="0" step="0.01" value={product.compare_at_price} onChange={(event) => setProduct({ ...product, compare_at_price: event.target.value })} /></label>
             </div>
-            <label>Product image<select value={product.image_url} onChange={(event) => setProduct({ ...product, image_url: event.target.value })}>{imageOptions.map((image) => <option value={image} key={image}>{image.replace("/img/", "")}</option>)}</select></label>
+            <label>Product image<select value={product.image_url} onChange={(event) => setProduct({ ...product, image_url: event.target.value })}>{productImageOptions.map((image) => <option value={image} key={image}>{image.split("/").pop()}</option>)}</select></label>
             <label>Description<textarea value={product.description} onChange={(event) => setProduct({ ...product, description: event.target.value })} rows="3" maxLength={2000} /></label>
             <label>Features <span className="admin-field-hint">Separate each feature with a comma.</span><input value={product.features} onChange={(event) => setProduct({ ...product, features: event.target.value })} placeholder="Lightweight, Breathable, Everyday comfort" /></label>
             <div className="admin-checks">
@@ -375,7 +361,7 @@ export default function AdminPage() {
               <label>Discount (%)<input type="number" min="1" max="90" step="1" value={offer.discount_percent} onChange={(event) => setOffer({ ...offer, discount_percent: event.target.value })} required /></label>
               <label>Product<select value={offer.product_id} onChange={(event) => setOffer({ ...offer, product_id: event.target.value })}><option value="">All products</option>{products.filter((item) => item.is_active).map((item) => <option value={item.id} key={item.id}>{item.name}</option>)}</select></label>
             </div>
-            <label>Offer image<select value={offer.image_url} onChange={(event) => setOffer({ ...offer, image_url: event.target.value })}>{imageOptions.map((image) => <option value={image} key={image}>{image.replace("/img/", "")}</option>)}</select></label>
+            <label>Offer image<select value={offer.image_url} onChange={(event) => setOffer({ ...offer, image_url: event.target.value })}>{offerImageOptions.map((image) => <option value={image} key={image}>{image.split("/").pop()}</option>)}</select></label>
             <div className="admin-checks"><label><input type="checkbox" checked={offer.is_active} onChange={(event) => setOffer({ ...offer, is_active: event.target.checked })} /> Visible on storefront</label></div>
             <button className="button button-dark admin-submit" type="submit" disabled={busy}>{busy ? "Saving…" : editingOffer ? "Save offer" : "Add offer"}</button>
           </form>
